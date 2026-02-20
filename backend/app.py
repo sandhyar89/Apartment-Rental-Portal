@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from config import Config
 from models import db, User, Tower, Unit, Amenity, Booking, Lease, Payment
 from datetime import datetime, date, time
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -812,5 +813,8 @@ def health_check():
     return jsonify({'status': 'healthy', 'message': 'Rental Portal API is running'}), 200
 
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000))
+    )
